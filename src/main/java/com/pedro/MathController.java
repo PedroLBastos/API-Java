@@ -1,5 +1,6 @@
 package com.pedro;
 
+import com.pedro.exceptions.UnsupportedMathOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,63 @@ public class MathController {
     throws Exception{
 
     if (!isNumeric(n1) || !isNumeric(n2)) {
-        throw new Exception();
+        throw new UnsupportedMathOperation("Please set a numeric value ");
     }
         return convertToDouble(n1) + convertToDouble(n2) ;
+    }
+
+    @GetMapping("/sub/{n1}/{n2}")
+    public Double sub(@PathVariable(value = "n1") String n1,
+                      @PathVariable(value = "n2") String n2 )
+            throws Exception{
+
+        if (!isNumeric(n1) || !isNumeric(n2)) {
+            throw new UnsupportedMathOperation("Please set a numeric value ");
+        }
+        return convertToDouble(n1) - convertToDouble(n2) ;
+    }
+
+    @GetMapping("/mult/{n1}/{n2}")
+    public Double mult(@PathVariable(value = "n1") String n1,
+                      @PathVariable(value = "n2") String n2 )
+            throws Exception{
+
+        if (!isNumeric(n1) || !isNumeric(n2)) {
+            throw new UnsupportedMathOperation("Please set a numeric value ");
+        }
+        return convertToDouble(n1) * convertToDouble(n2) ;
+    }
+
+    @GetMapping("/div/{n1}/{n2}")
+    public Double div(@PathVariable(value = "n1") String n1,
+                       @PathVariable(value = "n2") String n2 )
+            throws Exception{
+
+        if (!isNumeric(n1) || !isNumeric(n2)) {
+            throw new UnsupportedMathOperation("Please set a numeric value ");
+        }
+        return convertToDouble(n1) / convertToDouble(n2) ;
+    }
+
+    @GetMapping("/med/{n1}/{n2}")
+    public Double med(@PathVariable(value = "n1") String n1,
+                       @PathVariable(value = "n2") String n2 )
+            throws Exception{
+
+        if (!isNumeric(n1) || !isNumeric(n2)) {
+            throw new UnsupportedMathOperation("Please set a numeric value ");
+        }
+        return (convertToDouble(n1) + convertToDouble(n2)) /2 ;
+    }
+
+    @GetMapping("/raiz/{n1}/{n2}")
+    public Double raiz(@PathVariable(value = "n1") String n1)
+            throws Exception{
+
+        if (!isNumeric(n1)) {
+            throw new UnsupportedMathOperation("Please set a numeric value ");
+        }
+        return Math.sqrt(convertToDouble(n1));
     }
 
     private Double convertToDouble(String strNumber) {
